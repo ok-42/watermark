@@ -8,7 +8,8 @@ def add_watermark(image_path, text, output_path):
     text_image = Image.new('RGBA', image.size, (255, 255, 255, 0))
     draw = ImageDraw.Draw(text_image)
     font = ImageFont.truetype('arial.ttf', 50)
-    text_width, text_height = draw.textsize(watermark_text, font)
+    text_width = int(draw.textlength(watermark_text, font))
+    text_height = int(font.size)
     i = 0
     for y in range(0, image.size[1], text_height):
         for x in range(0, image.size[0], text_width):
