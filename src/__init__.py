@@ -1,9 +1,8 @@
 from PIL import Image, ImageDraw, ImageFont
 
 
-def add_watermark(image_path, text, output_path):
+def add_watermark(image_path: str, watermark_text: str, output_path: str) -> None:
     image = Image.open(image_path)
-    watermark_text = text
     opacity = 0.1
     text_image = Image.new('RGBA', image.size, (255, 255, 255, 0))
     draw = ImageDraw.Draw(text_image)
