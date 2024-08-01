@@ -2,7 +2,7 @@ import time
 
 from aiogram import Bot, Dispatcher, Router
 from aiogram.filters import Command
-from aiogram.types import Message
+from aiogram.types import FSInputFile, Message
 
 from src import add_watermark
 
@@ -16,17 +16,17 @@ async def handle_start(m: Message):
     await m.reply('Accepted')
 
 
-@router.message
+@router.message()
 async def handle_photo(m: Message, bot: Bot):
-    if m.text == '':
+    if m.caption == '':
         await m.answer('Caption is required')
         return
     ts = int(time.time())
     destination = f'downloads/photo_{ts}.png'
     output_path = f'generated/photo_{ts}.png'
     await bot.download(file=m.photo[-1], destination=destination)
-    add_watermark(destination, m.text, output_path)
-    await m.answer_photo(output_path)
+    add_watermark(destination, m.caption, output_path)
+    await m.answer_photo(FSInputFile(output_path))
 
 
 async def main():
