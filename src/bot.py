@@ -6,7 +6,8 @@ from aiogram.types import Message
 
 from src import add_watermark
 
-TOKEN = 'TOKEN'
+with open('src/token') as file:
+    TOKEN = file.read()
 router = Router()
 
 
